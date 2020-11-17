@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using TenmoServer.DAO;
+using TenmoServer.Models;
 using TenmoServer.Security;
 
 namespace TenmoServer
@@ -54,6 +55,8 @@ namespace TenmoServer
             services.AddSingleton<ITokenGenerator>(tk => new JwtGenerator(Configuration["JwtSecret"]));
             services.AddSingleton<IPasswordHasher>(ph => new PasswordHasher());
             services.AddTransient<IUserDAO>(m => new UserSqlDAO(connectionString));
+            services.AddTransient<IAccountsDAO>(a => new AccountSqlDAO(connectionString));
+            services.AddTransient<ITransfersDAO>(tr => new TransferSqlDAO(connectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

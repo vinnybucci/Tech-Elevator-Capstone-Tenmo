@@ -39,7 +39,7 @@ namespace TenmoServer.DAO
             }
             catch (SqlException)
             {
-                throw;
+                Console.WriteLine("There was a problem with the database connection.");
             }
 
             return returnUser;
@@ -62,8 +62,8 @@ namespace TenmoServer.DAO
                     {
                         while (reader.Read())
                         {
-                            User u = GetUserFromReader(reader);
-                            returnUsers.Add(u);
+                            User user = GetUserFromReader(reader);
+                            returnUsers.Add(user);
                         }
 
                     }
@@ -113,7 +113,7 @@ namespace TenmoServer.DAO
 
         private User GetUserFromReader(SqlDataReader reader)
         {
-            User u = new User()
+            User user = new User()
             {
                 UserId = Convert.ToInt32(reader["user_id"]),
                 Username = Convert.ToString(reader["username"]),
@@ -121,7 +121,17 @@ namespace TenmoServer.DAO
                 Salt = Convert.ToString(reader["salt"]),
             };
 
-            return u;
+            return user;
+        }
+
+        public User GetBalance(double amount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public User Update(int id, User user)
+        {
+            throw new NotImplementedException();
         }
     }
 }
